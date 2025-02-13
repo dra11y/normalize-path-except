@@ -1,6 +1,6 @@
 [package]
 name = "normalize-path-except"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 description = "NormalizePath from tower, but with exceptions, because it's hard to add them when you have to wrap your whole service in this middleware for axum."
 authors = ["Tom Grushka"]

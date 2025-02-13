@@ -131,12 +131,7 @@ where
 
     fn call(&mut self, mut req: Request<ReqBody>) -> Self::Future {
         let path = req.uri().path();
-        println!("path: {path}");
-        println!("exc len: {}", self.exceptions.len());
-        if !self.exceptions.iter().any(|x| {
-            println!("startswith: {x}");
-            path.starts_with(x)
-        }) {
+        if !self.exceptions.iter().any(|x| path.starts_with(x)) {
             normalize_trailing_slash(req.uri_mut());
         }
         self.inner.call(req)
