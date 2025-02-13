@@ -90,7 +90,7 @@ impl<S> Layer<S> for NormalizePathLayer {
     type Service = NormalizePath<S>;
 
     fn layer(&self, inner: S) -> Self::Service {
-        NormalizePath::trim_trailing_slash(&self.exceptions, inner)
+        NormalizePath::trim_trailing_slash(inner, &self.exceptions)
     }
 }
 
@@ -108,7 +108,7 @@ impl<S> NormalizePath<S> {
     ///
     /// Any trailing slashes from request paths will be removed. For example, a request with `/foo/`
     /// will be changed to `/foo` before reaching the inner service.
-    pub fn trim_trailing_slash<P: AsRef<str>>(exceptions: &[P], inner: S) -> Self {
+    pub fn trim_trailing_slash<P: AsRef<str>>(inner: S, exceptions: &[P]) -> Self {
         let exceptions = exceptions.iter().map(|x| x.as_ref().to_string()).collect();
         Self { exceptions, inner }
     }
